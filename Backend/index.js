@@ -30,9 +30,3 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-
-
-
-
-// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YWZmZDU0ZDA4NTg3YjRlMTRjMWRlZiIsImlhdCI6MTc3MzE2NTUzMSwiZXhwIjoxNzczNzcwMzMxfQ.S_6zXrEJwtNMAJbDDjlH2Uh7Zzs3zZP_5ly33II941A"
-
