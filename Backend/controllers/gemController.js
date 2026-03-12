@@ -203,4 +203,18 @@ const getTrendingGems = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-module.exports = { createGem, getGems, likeGem, deleteGem, updateGem, getSingleGem, searchGems, getTrendingGems };
+
+// Get Gems by User
+const getUserGems = async (req, res) => {
+  try {
+
+    const gems = await Gem.find({ user: req.params.id })
+      .sort({ createdAt: -1 });
+
+    res.json(gems);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+module.exports = { createGem, getGems, likeGem, deleteGem, updateGem, getSingleGem, searchGems, getTrendingGems, getUserGems };
