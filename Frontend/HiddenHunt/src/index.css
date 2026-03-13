@@ -1,1 +1,94 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@font-face {
+  font-family: "seekuw";
+  src: url("./assets/fonts/seekuw/seekuw.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("./assets/fonts/uni_neue/uni_neue.ttf") format("truetype"); /* Assuming uni_neue is the folder for Neue */
+}
+
+@font-face {
+  font-family: "nourd";
+  src: url("./assets/fonts/Nourd Font/Nourd.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #242834; /* Matching your theme background */
+}
+
+@import "tailwindcss";
+
+/* Existing font-face rules... */
+
+@keyframes slideAndShakeLeft {
+  0% {
+    transform: translateX(-150vw) translateY(-50px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(5px) translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  90% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideAndShakeRight {
+  0% {
+    transform: translateX(150vw) translateY(50px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-5px) translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  90% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-hidden {
+  animation: slideAndShakeLeft 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  text-shadow: 4px 4px 0px #000000;
+}
+
+.animate-hunt {
+  animation: slideAndShakeRight 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  text-shadow: 4px 4px 0px #000000;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out 1.5s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
