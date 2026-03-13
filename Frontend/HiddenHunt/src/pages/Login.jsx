@@ -3,21 +3,21 @@ import { useState } from "react";
 import { loginUser } from "../api/auth";
 
 function Login() {
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const res = await loginUser({ email, password });
+    try {
+      const res = await loginUser({ email, password });
 
-    localStorage.setItem("token", res.data.token);
-localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    navigate("/explore");
-
-  } catch (error) {
-    alert("Login failed");
-  }
-};
+      navigate("/explore");
+    } catch (error) {
+      alert("Login failed");
+      console.log(error);
+    }
+  };
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -25,15 +25,12 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-
         <h2 className="text-2xl font-bold text-center text-green-700 mb-6">
           Login
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
           <input
             type="email"
             placeholder="Email"
@@ -56,7 +53,6 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
           >
             Login
           </button>
-
         </form>
 
         <p className="text-sm text-center mt-4">
@@ -68,9 +64,7 @@ localStorage.setItem("user", JSON.stringify(res.data.user));
             Signup
           </span>
         </p>
-
       </div>
-
     </div>
   );
 }
