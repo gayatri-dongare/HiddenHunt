@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { createGem } from "../api/gems";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddGem() {
 
@@ -15,6 +16,7 @@ function AddGem() {
   });
 
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,11 +36,38 @@ function AddGem() {
 
       await createGem(formData);
 
+      toast.success("Gem added successfully 🎉");
+
+      setForm({
+        title: "",
+        description: "",
+        location: "",
+        category: ""
+      });
+
+      setImage(null);
+      setPreview(null);
+
       navigate("/explore");
 
     } catch (error) {
+
       console.log(error);
+      toast.error("Failed to add gem");
+
     }
+  };
+
+  const handleImage = (e) => {
+
+    const file = e.target.files[0];
+
+    setImage(file);
+
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+
   };
 
   return (
@@ -59,31 +88,43 @@ function AddGem() {
             <input
               placeholder="Title"
               className="border p-2 rounded"
+              value={form.title}
               onChange={(e)=>setForm({...form,title:e.target.value})}
             />
 
             <input
               placeholder="Location"
               className="border p-2 rounded"
+              value={form.location}
               onChange={(e)=>setForm({...form,location:e.target.value})}
             />
 
             <input
               placeholder="Category"
               className="border p-2 rounded"
+              value={form.category}
               onChange={(e)=>setForm({...form,category:e.target.value})}
             />
 
             <textarea
               placeholder="Description"
               className="border p-2 rounded"
+              value={form.description}
               onChange={(e)=>setForm({...form,description:e.target.value})}
             />
 
             <input
               type="file"
-              onChange={(e)=>setImage(e.target.files[0])}
+              onChange={handleImage}
             />
+
+            {preview && (
+              <img
+                src={preview}
+                alt="preview"
+                className="w-full h-48 object-cover rounded"
+              />
+            )}
 
             <button
               type="submit"

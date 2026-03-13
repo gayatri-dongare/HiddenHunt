@@ -143,24 +143,16 @@ const updateGem = async (req, res) => {
       return res.status(404).json({ message: "Gem not found" });
     }
 
-    // check ownership
-    if (gem.user.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Not authorized to update this gem" });
-    }
+    gem.title = req.body.title || gem.title;
+    gem.location = req.body.location || gem.location;
+    gem.category = req.body.category || gem.category;
+    gem.description = req.body.description || gem.description;
 
-    const { title, description, location, category } = req.body;
+    gem.updatedAt = Date.now();
 
-    gem.title = title || gem.title;
-    gem.description = description || gem.description;
-    gem.location = location || gem.location;
-    gem.category = category || gem.category;
+    const updatedGem = await gem.save();
 
-    await gem.save();
-
-    res.json({
-      message: "Gem updated successfully",
-      gem
-    });
+    res.json(updatedGem);
 
   } catch (error) {
     res.status(500).json({ message: error.message });

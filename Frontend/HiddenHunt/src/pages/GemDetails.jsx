@@ -1,13 +1,12 @@
 import Navbar from "../components/Navbar";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import { getSingleGem, likeGem, getComments, addComment } from "../api/gems";
+import { toast } from "react-toastify";
 
 function GemDetails() {
 
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [gem, setGem] = useState(null);
   const [comments, setComments] = useState([]);
@@ -46,8 +45,11 @@ function GemDetails() {
       const res = await getSingleGem(id);
       setGem(res.data);
 
+      toast.success("Gem liked");
+
     } catch (error) {
       console.log(error);
+      toast.error("Like failed");
     }
   };
 
@@ -63,14 +65,15 @@ function GemDetails() {
 
       setText("");
 
+      toast.success("Comment added");
+
     } catch (error) {
       console.log(error);
+      toast.error("Comment failed");
     }
   };
 
-  if (!gem) {
-    return <div className="text-center mt-20 text-lg">Loading...</div>;
-  }
+  if (!gem) return <div className="text-center mt-20">Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -82,7 +85,7 @@ function GemDetails() {
         <div className="bg-white w-175 rounded-lg shadow-md overflow-hidden">
 
           <img
-            src={gem.images?.[0] || "https://picsum.photos/700/400"}
+            src={gem.images?.[0]}
             className="w-full h-87.5 object-cover"
           />
 
@@ -96,11 +99,17 @@ function GemDetails() {
               {gem.location}
             </p>
 
-            <p className="text-sm text-gray-400 mb-4">
-              Posted on {new Date(gem.createdAt).toLocaleDateString()}
+            <p className="text-xs text-gray-400">
+              Published: {new Date(gem.createdAt).toLocaleDateString()}
             </p>
 
-            <p className="mb-4">
+            {gem.updatedAt !== gem.createdAt && (
+              <p className="text-xs text-gray-400">
+                Edited: {new Date(gem.updatedAt).toLocaleDateString()}
+              </p>
+            )}
+
+            <p className="mt-3 mb-4">
               {gem.description}
             </p>
 
@@ -110,10 +119,10 @@ function GemDetails() {
                 onClick={handleLike}
                 className="text-red-500"
               >
-                ❤️ {gem.likes?.length || 0} Likes
+                ❤️ {gem.likes?.length || 0}
               </button>
 
-              <span>💬 {comments.length} Comments</span>
+              <span>💬 {comments.length} comments</span>
 
             </div>
 
