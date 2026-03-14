@@ -1,191 +1,271 @@
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import CountUp from "react-countup";
+
+import mapVideo from "../assets/map.mp4";
+
+import compass from "../assets/compass.png";
+import compassWest from "../assets/compass-west.png";
+import adventure from "../assets/adventure.png";
+import diamond from "../assets/daimond.png";
+
+import coffee from "../assets/coffee.png";
+import chat from "../assets/chatbubble.png";
+import like from "../assets/like.png";
+import location from "../assets/location.png";
+import foodbar from "../assets/foodbar.png";
+import visit from "../assets/visit.png";
+
+import tree from "../assets/tree-wind.gif";
 
 function Landing() {
+
   const navigate = useNavigate();
 
-  // const doorRotateY = useTransform(scrollYProgress, [0, 0.3], [0, -135]);
-  // const interiorZoom = useTransform(scrollYProgress, [0.3, 0.85], [1, 20]);
-  // const interiorY = useTransform(scrollYProgress, [0.3, 0.85], [0, -150]);
-  // const toBlackOpacity = useTransform(scrollYProgress, [0.7, 0.9], [0, 1]);
-  // const buttonOpacity = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
+  const features = [
+    {
+      icon: coffee,
+      title: "Hidden Cafés",
+      text: "Discover secret cafés shared by explorers."
+    },
+    {
+      icon: foodbar,
+      title: "Food Places",
+      text: "Find underrated restaurants and street food spots."
+    },
+    {
+      icon: location,
+      title: "Hidden Locations",
+      text: "Explore hidden nature spots and scenic places."
+    }
+  ];
+
+  const stats = [
+    { number: 10000, label: "Explorers" },
+    { number: 3000, label: "Hidden Gems" },
+    { number: 50, label: "Cities" }
+  ];
 
   return (
-    <div className="bg-[#242834] text-white selection:bg-[#7D53FF] overflow-x-hidden">
-      {/* ====================== HERO ====================== */}
-      <section className="h-screen flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="flex flex-col items-center mb-6 text-center">
-          <motion.h1
-            initial={{ x: "-100vw", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ type: "spring", duration: 2.5, bounce: 0.3 }}
-            className="text-8xl md:text-[12rem] font-bold font-['seekuw'] text-[#8EFF01] leading-[0.8] [text-shadow:4px_4px_0px_#000000]"
-          >
-            Hidden
-          </motion.h1>
-          <motion.h1
-            initial={{ x: "100vw", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              duration: 2.5,
-              delay: 0.2,
-              bounce: 0.3,
-            }}
-            className="text-8xl md:text-[12rem] font-bold font-['seekuw'] text-[#7D53FF] leading-[0.9] [text-shadow:4px_4px_0px_#000000]"
-          >
-            Hunt
-          </motion.h1>
-        </div>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
+
+    <div className="relative min-h-screen overflow-x-hidden text-white">
+
+      {/* VIDEO BACKGROUND */}
+
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-3]"
+      >
+        <source src={mapVideo} type="video/mp4" />
+      </video>
+
+      <div className="absolute inset-0 bg-black/60 z-[-2]" />
+
+      {/* DECORATION PNGS */}
+
+      <img src={compassWest} className="absolute top-10 left-10 w-40 opacity-20 pointer-events-none" />
+      <img src={diamond} className="absolute bottom-20 left-20 w-28 opacity-20 pointer-events-none" />
+      <img src={adventure} className="absolute top-40 right-10 w-32 opacity-20 pointer-events-none" />
+      <img src={visit} className="absolute bottom-20 right-10 w-24 opacity-20 pointer-events-none" />
+      <img src={tree} className="absolute bottom-0 right-1/3 w-40 opacity-40 pointer-events-none" />
+
+      {/* HERO */}
+
+      <div className="max-w-7xl mx-auto px-6 py-32 text-center">
+
+        <motion.h1
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="text-[#B6FF00] font-['Neue Einstellung'] tracking-[0.4em] uppercase text-xs"
+          transition={{ duration: 1 }}
+          className="title-font text-6xl md:text-7xl bg-linear-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent"
         >
-          Discover the hidden gems of your city
+          HIDDEN HUNT
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="tagline-font text-2xl md:text-3xl mt-6 text-gray-200"
+        >
+          Discover Hidden Gems Around You
         </motion.p>
-      </section>
 
-      {/* ====================== FEATURED GEMS ====================== */}
-      <section className="py-24 bg-[#1D2331]">
-        <div className="max-w-6xl mx-auto px-6">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl font-['Neue Einstellung'] text-center mb-16 text-[#7D53FF]"
-          >
-            Hidden Gems This Week
-          </motion.h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Secret Rooftop Café",
-                city: "Pune",
-                img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34b4?q=80&w=800",
-              },
-              {
-                title: "Forgotten Temple Alley",
-                city: "Mumbai",
-                img: "https://images.unsplash.com/photo-1558618047-3c8c76ca5d0c?q=80&w=800",
-              },
-              {
-                title: "Midnight Street Art Lane",
-                city: "Bangalore",
-                img: "https://images.unsplash.com/photo-1484591974057-265bb767ef71?q=80&w=800",
-              },
-            ].map((gem, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
-                className="group relative overflow-hidden rounded-3xl h-96"
-              >
-                <img
-                  src={gem.img}
-                  alt={gem.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
-                <div className="absolute bottom-8 left-8">
-                  <p className="font-['nourd'] text-[#8EFF01] text-sm tracking-widest">
-                    {gem.city}
-                  </p>
-                  <h3 className="text-3xl font-['nourd'] text-white">
-                    {gem.title}
-                  </h3>
-                </div>
-                <div className="absolute top-6 right-6 text-4xl opacity-30">
-                  🔑
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+        <div className="mt-10 flex justify-center gap-6">
 
-      {/* ====================== HOW IT WORKS ====================== */}
-      <section className="min-h-screen py-24 flex items-center bg-[#242834]">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-5xl font-['Neue Einstellung'] text-center mb-20 text-[#B6FF00]"
-          >
-            Hunt in 3 Steps
-          </motion.h2>
-          <div className="space-y-24">
-            {[
-              {
-                num: "01",
-                title: "Spot Something Underrated",
-                desc: "Walk your city. Click a photo. Post it.",
-              },
-              {
-                num: "02",
-                title: "Community Votes & Stories",
-                desc: "Others discover it. Add tips. Rate it.",
-              },
-              {
-                num: "03",
-                title: "Earn Badges & Unlock Cities",
-                desc: "Hunt more → level up → explore globally.",
-              },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -100 : 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="flex gap-10 items-center"
-              >
-                <div className="font-['Neue Einstellung'] text-[120px] leading-none text-[#7D53FF] opacity-20">
-                  {step.num}
-                </div>
-                <div>
-                  <h3 className="text-4xl font-['nourd'] mb-3">{step.title}</h3>
-                  <p className="font-['nourd'] text-lg text-[#B6FF00]">
-                    {step.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ====================== FINAL CTA (door now sits right above this) ====================== */}
-      <section className="h-50 flex flex-col items-center justify-center bg-black relative">
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          className="text-center"
-        >
-          <h2 className="text-6xl font-['Neue Einstellung'] mb-6 text-[#B6FF00]">
-            Ready to Hunt?
-          </h2>
           <button
             onClick={() => navigate("/signup")}
-            className="px-20 py-8 bg-[#8EFF01] text-[#1D2331] rounded-full text-5xl font-['nourd'] font-bold hover:scale-105 transition-transform"
+            className="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-semibold shadow-lg"
           >
-            START YOUR JOURNEY
+            Start Exploring
           </button>
-        </motion.div>
-        <div className="absolute top-12 left-12 text-8xl opacity-10">🏙️</div>
-        <div className="absolute bottom-20 right-12 text-9xl opacity-10 rotate-12">
-          🗝️
+
+          <button
+            onClick={() => navigate("/login")}
+            className="border border-gray-400 hover:bg-gray-700 px-8 py-3 rounded-lg"
+          >
+            Login
+          </button>
+
         </div>
-      </section>
+
+      </div>
+
+      {/* FEATURES */}
+
+      <div className="max-w-6xl mx-auto px-6 py-20">
+
+        <h2 className="title-font text-4xl text-center mb-14">
+          Explore Amazing Places
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-10">
+
+          {features.map((f, i) => (
+
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-black/50 backdrop-blur-md rounded-xl p-8 border border-white/10 hover:scale-105 transition"
+            >
+
+              <img src={f.icon} className="w-14 mb-4" />
+
+              <h3 className="text-xl font-semibold mb-3">
+                {f.title}
+              </h3>
+
+              <p className="text-gray-300 text-sm">
+                {f.text}
+              </p>
+
+            </motion.div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* STATS */}
+
+      <div className="max-w-6xl mx-auto px-6 py-20 text-center">
+
+        <h2 className="title-font text-4xl mb-14">
+          Our Growing Community
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-10">
+
+          {stats.map((s, i) => (
+
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-black/50 backdrop-blur-md p-10 rounded-xl border border-white/10"
+            >
+
+              <h3 className="text-4xl font-bold text-green-400">
+                <CountUp end={s.number} duration={2} separator="," />+
+              </h3>
+
+              <p className="text-gray-300 mt-2">
+                {s.label}
+              </p>
+
+            </motion.div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* TRENDING PREVIEW */}
+
+      <div className="max-w-6xl mx-auto px-6 py-20">
+
+        <h2 className="title-font text-4xl text-center mb-12">
+          🔥 Trending Hidden Gems
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              onClick={() => navigate("/signup")}
+              className="cursor-pointer bg-black/50 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 hover:scale-105 transition"
+            >
+
+              <img
+                src={`https://picsum.photos/400?random=${i}`}
+                className="h-48 w-full object-cover"
+              />
+
+              <div className="p-4">
+
+                <h3 className="font-semibold flex items-center gap-2">
+                  <img src={location} className="w-5" />
+                  Hidden Location
+                </h3>
+
+                <p className="text-gray-400 text-sm flex items-center gap-2 mt-2">
+                  <img src={like} className="w-4" />
+                  Join to discover this place
+                </p>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* CTA */}
+
+      <div className="text-center py-24">
+
+        <h2 className="title-font text-4xl mb-6">
+          Ready for the Adventure?
+        </h2>
+
+        <button
+          onClick={() => navigate("/signup")}
+          className="bg-yellow-400 text-black px-10 py-3 rounded-lg font-semibold hover:scale-105 transition"
+        >
+          Create Free Account
+        </button>
+
+      </div>
 
       {/* FOOTER */}
-      <footer className="h-40 bg-black flex items-center justify-center">
-        <p className="text-[#B6FF00] font-['nourd'] text-[10px] tracking-[0.5em] uppercase">
-          Hidden Hunt • 2026 • Post Underrated Places in Your City
+
+      <footer className="text-center text-gray-400 pb-10">
+
+        <h3 className="title-font text-xl text-white">
+          Hidden Hunt
+        </h3>
+
+        <p className="text-sm mt-2">
+          Discover secret places shared by explorers.
         </p>
+
+        <p className="text-xs mt-4">
+          © {new Date().getFullYear()} Hidden Hunt
+        </p>
+
       </footer>
+
     </div>
   );
 }

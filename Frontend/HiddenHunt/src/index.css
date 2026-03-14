@@ -1,22 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap');
 @import "tailwindcss";
-
-@font-face {
-  font-family: "seekuw";
-  src: url("./assets/fonts/seekuw/seekuw.ttf") format("truetype");
+body{
+  font-family: 'Inter', sans-serif;
+  color:white;
 }
 
-@font-face {
-  font-family: "Neue Einstellung";
-  src: url("./assets/fonts/uni_neue/uni_neue.ttf") format("truetype"); /* Assuming uni_neue is the folder for Neue */
+.title-font{
+  font-family:'Cinzel Decorative', serif;
 }
 
-@font-face {
-  font-family: "nourd";
-  src: url("./assets/fonts/Nourd Font/Nourd.ttf") format("truetype");
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #242834; /* Matching your theme background */
+.tagline-font{
+  font-family:'Playfair Display', serif;
 }
