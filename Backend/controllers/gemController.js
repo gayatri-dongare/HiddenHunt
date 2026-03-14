@@ -5,7 +5,7 @@ const cloudinary = require("../config/cloudinary");
 const createGem = async (req, res) => {
   try {
 
-    const { title, description, location, category } = req.body;
+    const { title, description, location, category, mapLink } = req.body;
 
     let imageUrl = "";
 
@@ -26,6 +26,7 @@ const createGem = async (req, res) => {
       description,
       location,
       category,
+      mapLink,
       images: imageUrl ? [imageUrl] : [],
       user: req.user.id
     });
@@ -39,7 +40,8 @@ const createGem = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Get All Gems (Explore Feed)
+
+// Get All Gems
 const getGems = async (req, res) => {
   try {
 
@@ -72,28 +74,21 @@ const getSingleGem = async (req, res) => {
   }
 };
 
-// Like / Unlike Gem
+// Like / Unlike
 const likeGem = async (req, res) => {
   try {
 
     const gem = await Gem.findById(req.params.id);
 
-    if (!gem) {
-      return res.status(404).json({ message: "Gem not found" });
-    }
-
     const userId = req.user.id;
 
-    // check if already liked
     const alreadyLiked = gem.likes.includes(userId);
 
     if (alreadyLiked) {
-      // unlike
       gem.likes = gem.likes.filter(
         (id) => id.toString() !== userId
       );
     } else {
-      // like
       gem.likes.push(userId);
     }
 
@@ -109,19 +104,14 @@ const likeGem = async (req, res) => {
   }
 };
 
-// Delete Gem
+// Delete
 const deleteGem = async (req, res) => {
   try {
 
     const gem = await Gem.findById(req.params.id);
 
-    if (!gem) {
-      return res.status(404).json({ message: "Gem not found" });
-    }
-
-    // check ownership
     if (gem.user.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Not authorized to delete this gem" });
+      return res.status(403).json({ message: "Not authorized" });
     }
 
     await gem.deleteOne();
@@ -133,22 +123,17 @@ const deleteGem = async (req, res) => {
   }
 };
 
-// Update Gem
+// Update
 const updateGem = async (req, res) => {
   try {
 
     const gem = await Gem.findById(req.params.id);
 
-    if (!gem) {
-      return res.status(404).json({ message: "Gem not found" });
-    }
-
     gem.title = req.body.title || gem.title;
     gem.location = req.body.location || gem.location;
     gem.category = req.body.category || gem.category;
     gem.description = req.body.description || gem.description;
-
-    gem.updatedAt = Date.now();
+    gem.mapLink = req.body.mapLink || gem.mapLink;
 
     const updatedGem = await gem.save();
 
@@ -159,7 +144,7 @@ const updateGem = async (req, res) => {
   }
 };
 
-// Search Gems
+// Search
 const searchGems = async (req, res) => {
   try {
 
@@ -180,23 +165,37 @@ const searchGems = async (req, res) => {
   }
 };
 
-// Get Trending Gems
+// Trending (sorted by number of likes)
 const getTrendingGems = async (req, res) => {
   try {
 
-    const gems = await Gem.find()
-      .populate("user", "username")
-      .sort({ likes: -1 })
-      .limit(5);
+    const gems = await Gem.aggregate([
+      {
+        $addFields: {
+          likesCount: { $size: "$likes" }
+        }
+      },
+      {
+        $sort: { likesCount: -1, createdAt: -1 }
+      },
+      {
+        $limit: 5
+      }
+    ]);
 
-    res.json(gems);
+    const populated = await Gem.populate(gems, {
+      path: "user",
+      select: "username"
+    });
+
+    res.json(populated);
 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Get Gems by User
+// User Gems
 const getUserGems = async (req, res) => {
   try {
 
@@ -209,4 +208,15 @@ const getUserGems = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-module.exports = { createGem, getGems, likeGem, deleteGem, updateGem, getSingleGem, searchGems, getTrendingGems, getUserGems };
+
+module.exports = {
+  createGem,
+  getGems,
+  likeGem,
+  deleteGem,
+  updateGem,
+  getSingleGem,
+  searchGems,
+  getTrendingGems,
+  getUserGems
+};

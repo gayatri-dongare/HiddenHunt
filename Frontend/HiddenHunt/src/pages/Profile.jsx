@@ -82,16 +82,12 @@ function Profile() {
     }
   };
 
-  const handleLogout = () => {
+ const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    toast.success("Logged out");
-
-    navigate("/login");
-
-  };
+  window.location.replace("/");
+};
 
   return (
     <div className="min-h-screen bg-gray-100">

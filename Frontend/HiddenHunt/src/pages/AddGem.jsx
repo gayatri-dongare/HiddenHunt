@@ -12,7 +12,8 @@ function AddGem() {
     title: "",
     description: "",
     location: "",
-    category: ""
+    category: "",
+    mapLink: ""
   });
 
   const [image, setImage] = useState(null);
@@ -29,6 +30,7 @@ function AddGem() {
       formData.append("description", form.description);
       formData.append("location", form.location);
       formData.append("category", form.category);
+      formData.append("mapLink", form.mapLink);
 
       if (image) {
         formData.append("image", image);
@@ -42,7 +44,8 @@ function AddGem() {
         title: "",
         description: "",
         location: "",
-        category: ""
+        category: "",
+        mapLink: ""
       });
 
       setImage(null);
@@ -90,17 +93,26 @@ function AddGem() {
               className="border p-2 rounded"
               value={form.title}
               onChange={(e)=>setForm({...form,title:e.target.value})}
+              required
             />
 
             <input
-              placeholder="Location"
+              placeholder="Location (City / Area)"
               className="border p-2 rounded"
               value={form.location}
               onChange={(e)=>setForm({...form,location:e.target.value})}
+              required
             />
 
             <input
-              placeholder="Category"
+              placeholder="Google Maps Link (optional)"
+              className="border p-2 rounded"
+              value={form.mapLink}
+              onChange={(e)=>setForm({...form,mapLink:e.target.value})}
+            />
+
+            <input
+              placeholder="Category (Cafe / Viewpoint / Nature / etc)"
               className="border p-2 rounded"
               value={form.category}
               onChange={(e)=>setForm({...form,category:e.target.value})}
@@ -111,6 +123,7 @@ function AddGem() {
               className="border p-2 rounded"
               value={form.description}
               onChange={(e)=>setForm({...form,description:e.target.value})}
+              required
             />
 
             <input

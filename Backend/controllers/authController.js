@@ -1,64 +1,194 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("../utils/sendEmail");
 
-// Register User
+let pendingUsers = {}; // temporary storage
+
+
+// REGISTER USER (SEND OTP)
 const registerUser = async (req, res) => {
+
   try {
+
     const { username, name, email, password, bio } = req.body;
 
-    // check email
+    // USERNAME VALIDATION
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+
+    if (!usernameRegex.test(username)) {
+      return res.status(400).json({
+        message: "Username must be 3-20 characters and contain only letters, numbers or _"
+      });
+    }
+
+    // PASSWORD VALIDATION
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        message:
+          "Password must be 8+ characters with uppercase, lowercase, number and special character"
+      });
+    }
+
     const emailExists = await User.findOne({ email });
 
     if (emailExists) {
-      return res.status(400).json({ message: "Email already registered" });
+      return res.status(400).json({
+        message: "Email already registered"
+      });
     }
 
-    // check username
     const usernameExists = await User.findOne({ username });
 
     if (usernameExists) {
-      return res.status(400).json({ message: "Username already taken" });
+      return res.status(400).json({
+        message: "Username already taken"
+      });
     }
 
-    // hash password
+    // HASH PASSWORD
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // create user
-    const user = await User.create({
+    // GENERATE OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    pendingUsers[email] = {
       username,
       name,
       email,
       password: hashedPassword,
-      bio
-    });
+      bio,
+      otp,
+      otpExpires: Date.now() + 10 * 60 * 1000
+    };
 
-    res.status(201).json({
-      message: "User registered successfully",
-      user
+    await sendEmail(
+      email,
+      "Hidden Hunt Email Verification",
+      `Your verification OTP is: ${otp}`
+    );
+
+    res.status(200).json({
+      message: "OTP sent to email",
+      email
     });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+
 };
 
-// Login User
-const loginUser = async (req, res) => {
+
+// VERIFY OTP AND CREATE USER
+const verifyOtp = async (req, res) => {
+
   try {
+
+    const { email, otp } = req.body;
+
+    const pendingUser = pendingUsers[email];
+
+    if (!pendingUser) {
+      return res.status(400).json({
+        message: "Signup session expired. Please signup again."
+      });
+    }
+
+    if (
+      pendingUser.otp !== otp ||
+      pendingUser.otpExpires < Date.now()
+    ) {
+      return res.status(400).json({
+        message: "Invalid or expired OTP"
+      });
+    }
+
+    const newUser = await User.create({
+      username: pendingUser.username,
+      name: pendingUser.name,
+      email: pendingUser.email,
+      password: pendingUser.password,
+      bio: pendingUser.bio,
+      isVerified: true
+    });
+
+    delete pendingUsers[email];
+
+    res.json({
+      message: "Email verified successfully",
+      userId: newUser._id
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+};
+
+
+// RESEND OTP
+const resendOtp = async (req, res) => {
+
+  try {
+
+    const { email } = req.body;
+
+    const pendingUser = pendingUsers[email];
+
+    if (!pendingUser) {
+      return res.status(400).json({
+        message: "Signup session expired"
+      });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    pendingUser.otp = otp;
+    pendingUser.otpExpires = Date.now() + 10 * 60 * 1000;
+
+    await sendEmail(
+      email,
+      "Hidden Hunt Email Verification",
+      `Your new OTP is: ${otp}`
+    );
+
+    res.json({
+      message: "OTP resent successfully"
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+};
+
+
+// LOGIN USER
+const loginUser = async (req, res) => {
+
+  try {
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(400).json({
+        message: "Invalid email or password"
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid email or password" });
+      return res.status(400).json({
+        message: "Invalid email or password"
+      });
     }
 
     const token = jwt.sign(
@@ -76,5 +206,13 @@ const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+
 };
-module.exports = { registerUser, loginUser };
+
+
+module.exports = {
+  registerUser,
+  verifyOtp,
+  resendOtp,
+  loginUser
+};

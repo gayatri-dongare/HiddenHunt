@@ -11,6 +11,30 @@ function GemDetails() {
   const [gem, setGem] = useState(null);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
+  const [showMap, setShowMap] = useState(false);
+
+  // convert google maps link → embeddable map
+  const getEmbedMap = (url) => {
+    if (!url) return "";
+
+    try {
+
+      // try extracting coordinates
+      const match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+
+      if (match) {
+        const lat = match[1];
+        const lng = match[2];
+        return `https://maps.google.com/maps?q=${lat},${lng}&output=embed`;
+      }
+
+      // fallback
+      return `${url}&output=embed`;
+
+    } catch {
+      return url;
+    }
+  };
 
   useEffect(() => {
 
@@ -38,6 +62,7 @@ function GemDetails() {
   }, [id]);
 
   const handleLike = async () => {
+
     try {
 
       await likeGem(id);
@@ -47,13 +72,15 @@ function GemDetails() {
 
       toast.success("Gem liked");
 
-    } catch (error) {
-      console.log(error);
+    } catch {
+
       toast.error("Like failed");
+
     }
   };
 
   const handleComment = async (e) => {
+
     e.preventDefault();
 
     try {
@@ -67,13 +94,17 @@ function GemDetails() {
 
       toast.success("Comment added");
 
-    } catch (error) {
-      console.log(error);
+    } catch {
+
       toast.error("Comment failed");
+
     }
+
   };
 
-  if (!gem) return <div className="text-center mt-20">Loading...</div>;
+  if (!gem) {
+    return <div className="text-center mt-20">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -95,7 +126,7 @@ function GemDetails() {
               {gem.title}
             </h2>
 
-            <p className="text-gray-500 mb-1">
+            <p className="text-gray-500">
               {gem.location}
             </p>
 
@@ -103,7 +134,7 @@ function GemDetails() {
               Published: {new Date(gem.createdAt).toLocaleDateString()}
             </p>
 
-            {gem.updatedAt !== gem.createdAt && (
+            {gem.updatedAt && gem.updatedAt !== gem.createdAt && (
               <p className="text-xs text-gray-400">
                 Edited: {new Date(gem.updatedAt).toLocaleDateString()}
               </p>
@@ -113,7 +144,7 @@ function GemDetails() {
               {gem.description}
             </p>
 
-            <div className="flex gap-6 text-gray-700 mb-6">
+            <div className="flex items-center gap-6 mb-6">
 
               <button
                 onClick={handleLike}
@@ -122,7 +153,18 @@ function GemDetails() {
                 ❤️ {gem.likes?.length || 0}
               </button>
 
-              <span>💬 {comments.length} comments</span>
+              <span>
+                💬 {comments.length} comments
+              </span>
+
+              {gem.mapLink && (
+                <button
+                  onClick={() => setShowMap(true)}
+                  className="text-blue-600 font-semibold"
+                >
+                  📍 View Location
+                </button>
+              )}
 
             </div>
 
@@ -160,6 +202,49 @@ function GemDetails() {
         </div>
 
       </div>
+
+      {showMap && (
+
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+
+          <div className="bg-white p-6 rounded-lg w-150">
+
+            <h2 className="text-xl font-bold mb-4">
+              Location
+            </h2>
+
+            <iframe
+              src={getEmbedMap(gem.mapLink)}
+              width="100%"
+              height="350"
+              className="rounded"
+              loading="lazy"
+            />
+
+            <div className="flex justify-between mt-4">
+
+              <button
+                onClick={() => setShowMap(false)}
+                className="bg-gray-400 text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+
+              <a
+                href={gem.mapLink}
+                target="_blank"
+                className="bg-green-600 text-white px-4 py-2 rounded"
+              >
+                Open in Google Maps
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
   );
