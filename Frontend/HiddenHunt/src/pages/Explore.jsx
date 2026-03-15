@@ -90,7 +90,8 @@ function Explore() {
           <motion.h2
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="font-seekuw text-6xl md:text-8xl text-[#F2E1C2] tracking-tighter"
+            className=" text-6xl md:text-8xl text-[#F2E1C2] tracking-tighter"
+            style={{ fontFamily: "Ruslan Display" }}
           >
             Hidden <span className="text-[#F2AB27]">Gems</span>
           </motion.h2>

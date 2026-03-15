@@ -29,13 +29,19 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#375932] p-4 overflow-hidden relative selection:bg-[#F2AB27] selection:text-[#738C5A]">
+    <div className="min-h-screen flex items-center justify-center bg-[#445f3f] p-4 overflow-hidden relative selection:bg-[#F2AB27] selection:text-[#738C5A]">
       {/* === BACKGROUND GHOST TEXT === */}
       <div className="absolute inset-0 flex flex-col justify-center pointer-events-none opacity-5 select-none">
-        <h1 className="font-seekuw text-[25vw] leading-none text-[#F2E1C2] whitespace-nowrap -ml-20">
+        <h1
+          style={{ fontFamily: "Luckiest Guy" }}
+          className=" text-[25vw] leading-none text-[#F2E1C2] whitespace-nowrap -ml-20"
+        >
           HIDDEN HUNT
         </h1>
-        <h1 className="font-seekuw text-[25vw] leading-none text-[#F2E1C2] whitespace-nowrap ml-20">
+        <h1
+          style={{ fontFamily: "Luckiest Guy" }}
+          className=" text-[25vw] leading-none text-[#F2E1C2] whitespace-nowrap ml-20"
+        >
           HIDDEN HUNT
         </h1>
       </div>
@@ -47,8 +53,16 @@ function Login() {
       >
         <div className="bg-[#F2E1C2] p-8 md:p-12 rounded-[2.3rem] flex flex-col">
           <header className="text-center mb-10">
-            <h2 className="font-seekuw text-6xl text-[#738C5A] mb-1">Login</h2>
-            <p className="font-neue text-[#375932] uppercase tracking-[0.3em] text-[10px] font-bold">
+            <h2
+              style={{ fontFamily: "Luckiest Guy" }}
+              className=" text-6xl text-[#738C5A] mb-1"
+            >
+              Login
+            </h2>
+            <p
+              style={{ fontFamily: "seekuw" }}
+              className=" text-[#375932] uppercase tracking-[0.3em] text-[10px] font-bold"
+            >
               Access the secret map
             </p>
           </header>
@@ -61,7 +75,7 @@ function Login() {
               <input
                 type="email"
                 placeholder="explorer@hiddenhunt.com"
-                className="font-nourd w-full bg-[#F2AB27] text-[#738C5A] placeholder:text-[#738C5A]/40 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all"
+                className="font-nourd w-full bg-[#f2ab27b4] text-[#738C5A] placeholder:text-[#738C5A]/40 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -75,7 +89,7 @@ function Login() {
               <input
                 type="password"
                 placeholder="••••••••"
-                className="font-nourd w-full bg-[#F2AB27] text-[#738C5A] placeholder:text-[#738C5A]/40 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all"
+                className="font-nourd w-full bg-[#f2ab27b4] text-[#738C5A] placeholder:text-[#738C5A]/40 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

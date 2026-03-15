@@ -10,6 +10,13 @@ import tree from "../assets/tree-wind.gif";
 import coffee from "../assets/coffee.png";
 import foodbar from "../assets/foodbar.png";
 import location from "../assets/location.png";
+import cafe from "../assets/cafe.png";
+import mall from "../assets/mall.jpg";
+import pizzaShop from "../assets/pizza-shop.png";
+import temple from "../assets/temple.jpg";
+import waterfall from "../assets/waterfall.png";
+import fort from "../assets/fort.png";
+import mountains from "../assets/mountains.png";
 console.log(motion);
 
 function Landing() {
@@ -52,11 +59,11 @@ function Landing() {
     },
   ];
 
-  const stats = [
-    { number: 10000, label: "Explorers" },
-    { number: 3000, label: "Hidden Gems" },
-    { number: 50, label: "Cities" },
-  ];
+  // const stats = [
+  //   { number: 10000, label: "Explorers" },
+  //   { number: 3000, label: "Hidden Gems" },
+  //   { number: 50, label: "Cities" },
+  // ];
 
   return (
     // 'overflow-visible' on the parent allows the sticky child to track correctly
@@ -78,14 +85,17 @@ function Landing() {
             className="space-y-4"
           >
             <h1
-              className="text-8xl md:text-[12rem] leading-none tracking-tight text-[#F2AB27]"
-              style={{ fontFamily: "seekuw" }}
+              className="text-5xl md:text-[9rem] leading-none tracking-tight text-[#F2AB27] font-medium drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]"
+              style={{ fontFamily: "Luckiest Guy" }}
             >
-              HIDDEN <span className="text-[#F2E1C2]">HUNT</span>
+              HIDDEN{" "}
+              <span className="text-[#ffffff] drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+                HUNT
+              </span>
             </h1>
             <p
-              className="text-xl md:text-3xl font-light uppercase tracking-[0.4em] text-[#F2E1C2]"
-              style={{ fontFamily: "Neue Einstellung" }}
+              className="text-xl md:text-2xl font-light  tracking-[0.2em] text-[#F2E1C2]"
+              style={{ fontFamily: "Ruslan Display" }}
             >
               Discover Gems Around You
             </p>
@@ -99,8 +109,8 @@ function Landing() {
         >
           <div className="w-full max-w-7xl mx-auto">
             <h2
-              className="text-6xl md:text-8xl text-[#F2E1C2] mb-16 tracking-tight"
-              style={{ fontFamily: "seekuw" }}
+              className="text-4xl md:text-7xl text-[#F2E1C2] mb-16 tracking-tight"
+              style={{ fontFamily: "Ruslan Display" }}
             >
               The Hunt is On
             </h2>
@@ -132,34 +142,128 @@ function Landing() {
           </div>
         </motion.section>
 
-        {/* === SHUTTER 2: STATS === */}
+        {/* === SHUTTER 2: EXPLORE. DISCOVER. SHARE. === */}
         <motion.section
           style={{ x: shutter3X }}
-          className="absolute inset-0 z-20 bg-[#F2AB27] flex flex-col justify-center items-center px-10 shadow-[-40px_0_80px_rgba(0,0,0,0.5)] will-change-transform"
+          className="absolute inset-0 z-20 bg-[#F2AB27] flex flex-col justify-center items-center px-10 shadow-[-40px_0_80px_rgba(0,0,0,0.5)] overflow-hidden will-change-transform"
         >
-          <h2
-            className="text-6xl md:text-8xl text-[#738C5A] mb-24"
-            style={{ fontFamily: "seekuw" }}
-          >
-            Our Community
-          </h2>
-          <div className="flex flex-wrap justify-center gap-16 md:gap-32 w-full max-w-6xl">
-            {stats.map((s, i) => (
-              <div key={i} className="text-center space-y-2">
-                <h3
-                  className="text-7xl md:text-9xl font-black text-[#738C5A]"
-                  style={{ fontFamily: "nourd" }}
+          <div className="relative w-full h-full max-w-7xl mx-auto flex flex-col items-center justify-center">
+            {/* CENTRAL TAGLINE */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="z-10 text-center select-none"
+            >
+              <h2
+                className="text-4xl md:text-7xl text-[#375932] leading-tight drop-shadow-sm tracking-tight"
+                style={{ fontFamily: "Ruslan Display" }}
+              >
+                Explore. <br /> Discover. <br /> Share.
+              </h2>
+            </motion.div>
+
+            {/* SPREAD OUT ICONS */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
+              {[
+                {
+                  src: cafe,
+                  pos: "top-[10%] left-[10%]",
+                  delay: 0.1,
+                  x: -60,
+                  y: -60,
+                },
+                {
+                  src: mall,
+                  pos: "top-[10%] right-[10%]",
+                  delay: 0.2,
+                  x: 60,
+                  y: -60,
+                },
+                {
+                  src: pizzaShop,
+                  pos: "bottom-[10%] left-[10%]",
+                  delay: 0.3,
+                  x: -60,
+                  y: 60,
+                },
+                {
+                  src: temple,
+                  pos: "bottom-[10%] right-[10%]",
+                  delay: 0.4,
+                  x: 60,
+                  y: 60,
+                },
+                {
+                  src: waterfall,
+                  pos: "top-[20%] left-[40%]",
+                  delay: 0.5,
+                  x: 0,
+                  y: -40,
+                },
+                {
+                  src: fort,
+                  pos: "bottom-[25%] right-[35%]",
+                  delay: 0.6,
+                  x: 40,
+                  y: 40,
+                },
+                {
+                  src: mountains,
+                  pos: "top-[50%] left-[5%]",
+                  delay: 0.7,
+                  x: -50,
+                  y: 0,
+                },
+                {
+                  src: cafe,
+                  pos: "top-[50%] right-[5%]",
+                  delay: 0.8,
+                  x: 50,
+                  y: 0,
+                },
+              ].map((icon, idx) => (
+                <motion.div
+                  key={idx}
+                  className={`absolute pointer-events-auto ${icon.pos}`}
+                  initial={{
+                    opacity: 0,
+                    x: icon.x || 0,
+                    y: icon.y || 0,
+                    scale: 0,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    rotate: [0, idx % 2 === 0 ? 10 : -10, 0],
+                  }}
+                  viewport={{ once: false }}
+                  transition={{
+                    delay: icon.delay,
+                    duration: 0.9,
+                    type: "spring",
+                    stiffness: 70,
+                  }}
                 >
-                  <CountUp end={s.number} duration={1.5} enableScrollSpy />+
-                </h3>
-                <p
-                  className="text-xl md:text-2xl font-bold uppercase tracking-widest text-[#375932]"
-                  style={{ fontFamily: "Neue Einstellung" }}
-                >
-                  {s.label}
-                </p>
-              </div>
-            ))}
+                  <motion.div
+                    whileHover={{
+                      scale: 1.15,
+                      filter:
+                        "brightness(1.1) drop-shadow(0 0 20px rgba(255,255,255,0.4))",
+                    }}
+                    className="bg-[#F2E1C2] p-3 md:p-5 rounded-full shadow-2xl group border-2 border-[#375932]/10"
+                  >
+                    <img
+                      src={icon.src}
+                      alt="icon"
+                      className="w-12 h-12 md:w-20 md:h-20 object-cover rounded-full transition-transform group-hover:scale-105"
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.section>
 
@@ -169,15 +273,15 @@ function Landing() {
           className="absolute inset-0 z-30 bg-[#F2E1C2] flex flex-col items-center justify-center px-10 shadow-[-40px_0_80px_rgba(0,0,0,0.5)] text-[#375932] will-change-transform"
         >
           <h2
-            className="text-7xl md:text-[10rem] mb-12 text-center leading-[0.85] text-[#F2AB27]"
-            style={{ fontFamily: "seekuw" }}
+            className="text-5xl md:text-8xl text-center leading-[0.85] text-[#F2AB27]"
+            style={{ fontFamily: "Ruslan Display" }}
           >
             READY TO <br /> <span className="text-[#375932]">GET LOST?</span>
           </h2>
           <button
             onClick={() => navigate("/signup")}
-            className="group relative overflow-hidden bg-[#F2AB27] text-[#738C5A] px-16 py-6 rounded-full text-2xl font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl"
-            style={{ fontFamily: "Neue Einstellung" }}
+            className="group relative overflow-hidden bg-[#F2AB27] text-[#738C5A] px-16 py-6 rounded-full text-xl font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl"
+            style={{ fontFamily: "seekuw" }}
           >
             Join the Hunt
           </button>
@@ -185,7 +289,7 @@ function Landing() {
             className="absolute bottom-10 w-full text-center font-bold text-[#738C5A] text-sm tracking-widest uppercase"
             style={{ fontFamily: "nourd" }}
           >
-            © {new Date().getFullYear()} Hidden Hunt — Designed for the Brave
+            © {new Date().getFullYear()} Hidden Hunt — Designed for explorers
           </footer>
         </motion.section>
       </div>

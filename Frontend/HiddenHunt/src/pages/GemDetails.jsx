@@ -1,17 +1,21 @@
-//
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleGem, likeGem, getComments, addComment } from "../api/gems";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
+import heart from "../assets/like.png";
+import location from "../assets/visit.png";
 console.log(motion);
+
 function GemDetails() {
   const { id } = useParams();
   const [gem, setGem] = useState(null);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
   const [showMap, setShowMap] = useState(false);
+  // NEW STATE: Controls visibility of the comment list
+  const [showComments, setShowComments] = useState(false);
 
   const getEmbedMap = (url) => {
     if (!url) return "";
@@ -82,15 +86,15 @@ function GemDetails() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-5xl mx-auto pt-28 px-4"
       >
-        <div className="bg-[#F2E1C2] rounded-[3rem] overflow-hidden shadow-2xl border-b-[12px] border-[#F2AB27]">
+        <div className="bg-[#F2E1C2] rounded-[3rem] overflow-hidden shadow-2xl border-b-12 border-[#F2AB27]">
           {/* IMAGE HERO */}
-          <div className="relative h-[400px] md:h-[550px]">
+          <div className="relative h-100 md:h-137.5">
             <img
               src={gem.images?.[0]}
               className="w-full h-full object-cover"
               alt={gem.title}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#375932]/80 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-[#375932]/80 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8 text-[#F2E1C2]">
               <h1 className="font-seekuw text-5xl md:text-7xl leading-none">
                 {gem.title}
@@ -101,32 +105,32 @@ function GemDetails() {
             </div>
           </div>
 
-          {/* CONTENT GRID */}
           <div className="p-8 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-8">
               <div>
-                <h3 className="font-neue text-[#738C5A] uppercase tracking-widest text-xs font-black mb-4">
+                <h3 className="font-seekuw text-[#738C5A] uppercase tracking-widest text-xs font-black mb-4">
                   The Discovery
                 </h3>
-                <p className="font-nourd text-[#375932] text-xl leading-relaxed">
+                <p className="font-seekuw text-[#375932] text-xl leading-relaxed">
                   {gem.description}
                 </p>
               </div>
 
-              {/* STATS & MAP TRIGGER */}
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={handleLike}
-                  className="font-neue bg-[#F2AB27] text-[#738C5A] px-6 py-3 rounded-2xl flex items-center gap-2 font-bold hover:bg-[#375932] hover:text-[#F2E1C2] transition-all"
+                  className="font-seekuw bg-[#F2AB27] text-[#738C5A] px-6 py-3 rounded-2xl flex items-center gap-2 font-bold hover:bg-[#375932] hover:text-[#F2E1C2] transition-all"
                 >
-                  ❤️ {gem.likes?.length || 0} APPRECIATIONS
+                  <img src={heart} alt="heart" className="w-7 h-7" />
+                  {gem.likes?.length || 0} APPRECIATIONS
                 </button>
                 {gem.mapLink && (
                   <button
                     onClick={() => setShowMap(true)}
-                    className="font-neue bg-[#738C5A] text-[#F2E1C2] px-6 py-3 rounded-2xl flex items-center gap-2 font-bold hover:bg-[#F2AB27] hover:text-[#738C5A] transition-all"
+                    className="font-seekuw bg-[#738C5A] text-[#F2E1C2] px-6 py-3 rounded-2xl flex items-center gap-2 font-bold hover:bg-[#F2AB27] hover:text-[#738C5A] transition-all"
                   >
-                    📍 VIEW ON MAP
+                    <img src={location} alt="location" className="w-7 h-7" />
+                    VIEW ON MAP
                   </button>
                 )}
               </div>
@@ -134,12 +138,15 @@ function GemDetails() {
               {/* COMMENTS SECTION */}
               <div className="pt-8 border-t border-[#738C5A]/20">
                 <h3 className="font-seekuw text-4xl text-[#375932] mb-6">
-                  Field Notes
+                  comments ({comments.length})
                 </h3>
-                <form onSubmit={handleComment} className="flex gap-3 mb-8">
+
+                <form onSubmit={handleComment} className="flex gap-3 mb-4">
                   <input
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    // TRIGGER: Opens comments on click/focus
+                    onFocus={() => setShowComments(true)}
                     placeholder="Add your note..."
                     className="font-nourd flex-1 bg-[#F2AB27]/20 border-2 border-transparent focus:border-[#738C5A] p-4 rounded-2xl outline-none text-[#375932] placeholder:text-[#738C5A]/60"
                   />
@@ -148,25 +155,51 @@ function GemDetails() {
                   </button>
                 </form>
 
-                <div className="space-y-4">
-                  {comments.map((c) => (
-                    <div
-                      key={c._id}
-                      className="bg-[#738C5A]/5 p-4 rounded-2xl border-l-4 border-[#F2AB27]"
+                {/* ANIMATED COMMENT LIST */}
+                <AnimatePresence>
+                  {showComments && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
                     >
-                      <p className="font-neue text-[10px] text-[#738C5A] font-black uppercase tracking-tighter mb-1">
-                        {c.user?.username}
-                      </p>
-                      <p className="font-nourd text-[#375932]">{c.text}</p>
-                    </div>
-                  ))}
-                </div>
+                      <div className="space-y-4 pt-4">
+                        {comments.length > 0 ? (
+                          comments.map((c) => (
+                            <div
+                              key={c._id}
+                              className="bg-[#738C5A]/5 p-4 rounded-2xl border-l-4 border-[#F2AB27]"
+                            >
+                              <p className="font-neue text-[10px] text-[#738C5A] font-black uppercase tracking-tighter mb-1">
+                                {c.user?.username}
+                              </p>
+                              <p className="font-nourd text-[#375932]">
+                                {c.text}
+                              </p>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="font-neue text-xs text-[#738C5A] text-center py-4">
+                            No intel shared yet. Be the first!
+                          </p>
+                        )}
+                        <button
+                          onClick={() => setShowComments(false)}
+                          className="w-full py-2 text-[10px] font-black uppercase tracking-widest text-[#738C5A] hover:text-[#375932]"
+                        >
+                          ↑ Hide Comments
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
             {/* SIDEBAR INFO */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="bg-[#375932] text-[#F2E1C2] p-8 rounded-[2rem] space-y-4 shadow-xl">
+              <div className="bg-[#375932] text-[#F2E1C2] p-8 rounded-4xl space-y-4 shadow-xl">
                 <h4 className="font-seekuw text-3xl">Intel</h4>
                 <div>
                   <p className="font-neue text-[10px] opacity-50 uppercase tracking-widest">
@@ -188,10 +221,10 @@ function GemDetails() {
         </div>
       </motion.div>
 
-      {/* MODAL MAP */}
+      {/* MODAL MAP (Kept original logic) */}
       <AnimatePresence>
         {showMap && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -209,8 +242,9 @@ function GemDetails() {
                 src={getEmbedMap(gem.mapLink)}
                 width="100%"
                 height="450"
-                className="rounded-[2rem]"
+                className="rounded-4xl"
                 loading="lazy"
+                title="map"
               />
               <div className="p-6 flex justify-between items-center">
                 <button
@@ -222,6 +256,7 @@ function GemDetails() {
                 <a
                   href={gem.mapLink}
                   target="_blank"
+                  rel="noreferrer"
                   className="font-neue bg-[#375932] text-[#F2E1C2] px-6 py-3 rounded-xl font-bold uppercase text-xs"
                 >
                   Open GPS

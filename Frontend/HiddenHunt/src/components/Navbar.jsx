@@ -40,6 +40,7 @@ function Navbar() {
           <h1
             onClick={() => navigate("/explore")}
             className="font-seekuw text-3xl text-[#F2E1C2] cursor-pointer tracking-tight hidden md:block"
+            style={{ fontFamily: "Luckiest Guy" }}
           >
             HIDDEN HUNT
           </h1>
@@ -85,10 +86,13 @@ function Navbar() {
 
               {/* Sidebar Header */}
               <div className="mt-8 mb-12">
-                <h2 className="font-seekuw text-6xl text-[#738C5A] leading-none">
-                  THE
+                <h2
+                  className="font-seekuw text-5xl text-[#738C5A] leading-none"
+                  style={{ fontFamily: "seekuw" }}
+                >
+                  Treasure
                   <br />
-                  MENU
+                  box
                 </h2>
                 <div className="w-12 h-1 bg-[#375932] mt-4" />
               </div>
@@ -110,9 +114,13 @@ function Navbar() {
                     <span className="font-neue text-[10px] text-[#375932] opacity-50 font-bold">
                       0{index + 1}
                     </span>
-                    <h3 className="font-seekuw text-4xl md:text-5xl text-[#738C5A] group-hover:text-[#F2E1C2] group-hover:translate-x-3 transition-all">
+                    <h4
+                      className=" text-4xl md:text-3xl text-[#738C5A] group-hover:text-[#F2E1C2] group-hover:translate-x-3 transition-all"
+                      style={{ fontFamily: "seekuw" }}
+                    >
                       {item.name}
-                    </h3>
+                      <div className="w-40 h-0.5 bg-[#f0f5ef] mt-4" />
+                    </h4>
                   </motion.div>
                 ))}
               </div>
