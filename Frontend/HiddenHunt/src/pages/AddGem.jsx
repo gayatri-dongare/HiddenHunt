@@ -55,7 +55,7 @@ function AddGem() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-2xl mx-auto pt-32 px-6"
       >
-        <div className="bg-[#F2E1C2] rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-b-[10px] border-[#F2AB27]">
+        <div className="bg-[#F2E1C2] rounded-[2.5rem] p-8 md:p-12 shadow-2xl border-b-10 border-[#F2AB27]">
           <header className="mb-10">
             <h2
               className="text-4xl md:text-5xl text-[#375932] mb-2"
@@ -150,7 +150,7 @@ function AddGem() {
                 />
                 <label
                   htmlFor="gem-image"
-                  className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-[#738C5A]/30 rounded-[2rem] cursor-pointer hover:border-[#F2AB27] hover:bg-[#F2AB27]/5 transition-all overflow-hidden"
+                  className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-[#738C5A]/30 rounded-4xl cursor-pointer hover:border-[#F2AB27] hover:bg-[#F2AB27]/5 transition-all overflow-hidden"
                 >
                   {preview ? (
                     <img

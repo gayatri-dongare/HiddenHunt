@@ -127,7 +127,7 @@ function Signup() {
 
             <textarea
               placeholder="Explorer Bio..."
-              className="font-nourd w-full bg-[#f2ab27b4] text-[#738C5A] placeholder:text-[#738C5A]/60 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all min-h-[80px] resize-none"
+              className="font-nourd w-full bg-[#f2ab27b4] text-[#738C5A] placeholder:text-[#738C5A]/60 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-[#375932] transition-all min-h-20 resize-none"
               value={form.bio}
               onChange={(e) => setForm({ ...form, bio: e.target.value })}
             />

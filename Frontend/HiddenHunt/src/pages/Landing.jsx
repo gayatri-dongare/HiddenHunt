@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup";
 
 // Asset Imports
-import pixelsBg from "../assets/bus.gif";
-import compassWest from "../assets/compass-west.png";
+import pixelsBg from "../assets/travel.gif";
+// import compassWest from "../assets/compass-west.png";
 import tree from "../assets/tree-wind.gif";
 import coffee from "../assets/coffee.png";
 import foodbar from "../assets/foodbar.png";
@@ -295,10 +295,10 @@ function Landing() {
       </div>
 
       {/* DECORATIONS - Put inside the 400vh container but keep them 'fixed' */}
-      <img
+      {/* <img
         src={compassWest}
         className="fixed top-8 left-8 w-24 md:w-32 opacity-30 pointer-events-none z-50 invert"
-      />
+      /> */}
       <img
         src={tree}
         className="fixed bottom-0 right-4 w-40 md:w-64 opacity-40 pointer-events-none z-50"

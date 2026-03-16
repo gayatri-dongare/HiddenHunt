@@ -392,8 +392,8 @@ function Profile() {
           {/* USER INFO */}
           <div className="flex-1 text-center md:text-left mb-4">
             <h2
-              className="text-4xl font-black tracking-tight font-light "
-              style={{ fontFamily: "Luckiest Guy" }}
+              className="text-4xl font-black tracking-tight "
+              style={{ fontFamily: "seekuw" }}
             >
               {user?.username}
             </h2>

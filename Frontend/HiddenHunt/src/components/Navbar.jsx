@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 console.log(motion);
 
 // Asset Import
-import diamondIcon from "../assets/foodbar.png"; // Ensure this path is correct
+import diamondIcon from "../assets/logo.png"; // Ensure this path is correct
 
 function Navbar() {
   const navigate = useNavigate();
@@ -21,19 +21,19 @@ function Navbar() {
   return (
     <>
       {/* === TOP NAVBAR === */}
-      <nav className="fixed top-0 left-0 w-full z-[100] px-6 py-4 flex justify-between items-center backdrop-blur-md bg-[#375932]/10 border-b border-[#F2E1C2]/10">
+      <nav className="fixed top-0 left-0 w-full z-100 px-6 py-4 flex justify-between items-center backdrop-blur-md bg-[#375932]/10 border-b border-[#F2E1C2]/10">
         {/* Left: Diamond Trigger */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1">
           <motion.button
             whileHover={{ scale: 1.1, rotate: 15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="w-12 h-12 flex items-center justify-center bg-[#F2AB27] rounded-2xl shadow-lg cursor-pointer"
+            className="w-12 h-12 flex items-center justify-center  rounded-b-full shadow-lg cursor-pointer"
           >
             <img
               src={diamondIcon}
               alt="menu"
-              className="w-8 h-8 object-contain"
+              className="w-35 h-35 object-contain"
             />
           </motion.button>
 
@@ -65,7 +65,7 @@ function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-110"
             />
 
             {/* Sidebar Content */}
@@ -74,7 +74,7 @@ function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 h-full w-[300px] md:w-[400px] bg-[#F2AB27] z-[120] shadow-2xl flex flex-col p-8"
+              className="fixed top-0 left-0 h-full w-75 md:w-100 bg-[#F2AB27] z-120 shadow-2xl flex flex-col p-8"
             >
               {/* Close Button */}
               <button

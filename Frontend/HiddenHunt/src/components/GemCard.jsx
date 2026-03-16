@@ -9,7 +9,7 @@ function GemCard({ gem }) {
     <motion.div
       whileHover={{ y: -8 }}
       onClick={() => navigate(`/gem/${gem._id}`)}
-      className="group relative bg-[#F2E1C2] rounded-[2rem] overflow-hidden cursor-pointer shadow-xl border-b-4 border-[#738C5A] transition-all"
+      className="group relative bg-[#F2E1C2] rounded-4xl overflow-hidden cursor-pointer shadow-xl border-b-4 border-[#738C5A] transition-all"
     >
       {/* IMAGE SECTION */}
       <div className="relative h-60 overflow-hidden">

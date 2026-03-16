@@ -104,7 +104,12 @@ function Search() {
             animate={{ opacity: 0.1 }}
             className="flex flex-col items-center justify-center py-20 opacity-10"
           >
-            <h3 className="text-9xl font-black text-[#F2E1C2]">HUNT</h3>
+            <h3
+              className="text-9xl font-black text-[#F2E1C2]"
+              style={{ fontFamily: "Luckiest Guy" }}
+            >
+              HUNT
+            </h3>
           </motion.div>
         )}
       </div>

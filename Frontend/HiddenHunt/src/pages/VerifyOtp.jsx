@@ -37,7 +37,7 @@ function VerifyOtp() {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-[#F2E1C2] p-10 md:p-14 rounded-[3rem] shadow-2xl w-full max-w-md relative z-10 border-b-[12px] border-[#375932]"
+        className="bg-[#F2E1C2] p-10 md:p-14 rounded-[3rem] shadow-2xl w-full max-w-md relative z-10 border-b-12 border-[#375932]"
       >
         <header className="text-center mb-10">
           <div className="inline-block bg-[#375932] text-[#F2AB27] p-4 rounded-2xl mb-6 shadow-inner">
@@ -58,7 +58,7 @@ function VerifyOtp() {
           </div>
           <h2
             className="text-4xl text-[#375932] mb-2"
-            style={{ fontFamily: "Ruslan Display" }}
+            style={{ fontFamily: "Luckiest Guy" }}
           >
             Final <span className="text-[#F2AB27]">Clearance</span>
           </h2>
@@ -86,7 +86,8 @@ function VerifyOtp() {
             type="submit"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="group relative overflow-hidden bg-[#375932] text-[#F2E1C2] py-5 rounded-2xl font-neue font-black uppercase tracking-[0.2em] transition-all hover:shadow-[0_0_20px_rgba(55,89,50,0.4)] active:scale-95"
+            style={{ fontFamily: "seekuw" }}
+            className="group relative overflow-hidden bg-[#375932] text-[#F2E1C2] py-5 rounded-2xl  font-black uppercase tracking-[0.2em] transition-all hover:shadow-[0_0_20px_rgba(55,89,50,0.4)] active:scale-95"
           >
             <span className="relative z-10">Verify Passcode</span>
             <motion.div
@@ -104,7 +105,10 @@ function VerifyOtp() {
           </button>
         </form>
 
-        <p className="mt-8 text-center font-neue text-[10px] text-[#738C5A] uppercase tracking-widest leading-loose">
+        <p
+          style={{ fontFamily: "seekuw" }}
+          className="mt-8 text-center  text-[10px] text-[#738C5A] uppercase tracking-widest leading-loose"
+        >
           Secure Transmission System <br />
           <span className="opacity-40">Do not share this code with anyone</span>
         </p>

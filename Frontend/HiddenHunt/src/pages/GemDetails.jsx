@@ -94,9 +94,27 @@ function GemDetails() {
               className="w-full h-full object-cover"
               alt={gem.title}
             />
+            <div className="absolute top-6 left-6 z-10 flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#F2AB27] border-2 border-[#F2E1C2] flex items-center justify-center shadow-2xl">
+                <span className="font-seekuw text-[#375932] text-2xl font-black uppercase">
+                  {gem.user?.name?.charAt(0) || "U"}
+                </span>
+              </div>
+              <div className="hidden md:block">
+                <p className="font-neue text-[10px] text-white/60 uppercase tracking-widest font-bold leading-none">
+                  Posted By
+                </p>
+                <p className="font-nourd text-[#F2E1C2] text-sm font-bold uppercase">
+                  {gem.user?.name || "Unknown"}
+                </p>
+              </div>
+            </div>
             <div className="absolute inset-0 bg-linear-to-t from-[#375932]/80 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8 text-[#F2E1C2]">
-              <h1 className="font-seekuw text-5xl md:text-7xl leading-none">
+              <h1
+                className=" text-5xl md:text-7xl leading-none uppercase"
+                style={{ fontFamily: "seekuw" }}
+              >
                 {gem.title}
               </h1>
               <p className="font-neue text-xs md:text-sm uppercase tracking-[0.4em] font-bold mt-2 opacity-90">
@@ -200,7 +218,7 @@ function GemDetails() {
             {/* SIDEBAR INFO */}
             <div className="lg:col-span-1 space-y-6">
               <div className="bg-[#375932] text-[#F2E1C2] p-8 rounded-4xl space-y-4 shadow-xl">
-                <h4 className="font-seekuw text-3xl">Intel</h4>
+                <h4 className="font-seekuw text-3xl">Info</h4>
                 <div>
                   <p className="font-neue text-[10px] opacity-50 uppercase tracking-widest">
                     Published

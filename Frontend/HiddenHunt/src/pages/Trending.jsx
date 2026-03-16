@@ -134,8 +134,11 @@ function Trending() {
 
         {/* BACKGROUND DECORATION */}
         <div className="fixed bottom-0 right-0 p-10 pointer-events-none opacity-5">
-          <h3 className="text-[20rem] font-black text-[#375932] leading-none">
-            HOT
+          <h3
+            className="text-[20rem] font-black text-[#375932] leading-none"
+            style={{ fontFamily: "Luckiest Guy" }}
+          >
+            TRENDS
           </h3>
         </div>
       </div>
