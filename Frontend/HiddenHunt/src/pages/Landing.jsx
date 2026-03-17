@@ -3,9 +3,8 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup";
 
-// Asset Imports
 import pixelsBg from "../assets/travel.gif";
-// import compassWest from "../assets/compass-west.png";
+
 import tree from "../assets/tree-wind.gif";
 import coffee from "../assets/coffee.png";
 import foodbar from "../assets/foodbar.png";
@@ -17,27 +16,24 @@ import temple from "../assets/temple.jpg";
 import waterfall from "../assets/waterfall.png";
 import fort from "../assets/fort.png";
 import mountains from "../assets/mountains.png";
+// import like from "../assets/like.png";
 console.log(motion);
 
 function Landing() {
   const navigate = useNavigate();
   const targetRef = useRef(null);
 
-  // Use 'target' and 'offset' to ensure tracking is 1:1 with the 400vh container
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"],
   });
 
-  // Precise shutter timing to prevent "overlapping" or "floating" sensations
-  // Section 2 covers Section 1 (0% -> 33% of total scroll)
   const shutter2X = useTransform(scrollYProgress, [0, 0.33], ["100%", "0%"]);
-  // Section 3 covers Section 2 (33% -> 66% of total scroll)
+
   const shutter3X = useTransform(scrollYProgress, [0.33, 0.66], ["100%", "0%"]);
-  // Section 4 covers Section 3 (66% -> 100% of total scroll)
+
   const shutter4X = useTransform(scrollYProgress, [0.66, 1], ["100%", "0%"]);
 
-  // Parallax for Hero Title
   const titleX = useTransform(scrollYProgress, [0, 0.25], [0, -150]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
@@ -59,14 +55,7 @@ function Landing() {
     },
   ];
 
-  // const stats = [
-  //   { number: 10000, label: "Explorers" },
-  //   { number: 3000, label: "Hidden Gems" },
-  //   { number: 50, label: "Cities" },
-  // ];
-
   return (
-    // 'overflow-visible' on the parent allows the sticky child to track correctly
     <div
       ref={targetRef}
       className="relative h-[400vh] bg-[#375932] overflow-visible"
@@ -294,11 +283,6 @@ function Landing() {
         </motion.section>
       </div>
 
-      {/* DECORATIONS - Put inside the 400vh container but keep them 'fixed' */}
-      {/* <img
-        src={compassWest}
-        className="fixed top-8 left-8 w-24 md:w-32 opacity-30 pointer-events-none z-50 invert"
-      /> */}
       <img
         src={tree}
         className="fixed bottom-0 right-4 w-40 md:w-64 opacity-40 pointer-events-none z-50"

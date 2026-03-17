@@ -189,9 +189,11 @@ function GemDetails() {
                               key={c._id}
                               className="bg-[#738C5A]/5 p-4 rounded-2xl border-l-4 border-[#F2AB27]"
                             >
+                              {/* Only the Username is displayed now */}
                               <p className="font-neue text-[10px] text-[#738C5A] font-black uppercase tracking-tighter mb-1">
                                 {c.user?.username}
                               </p>
+
                               <p className="font-nourd text-[#375932]">
                                 {c.text}
                               </p>
