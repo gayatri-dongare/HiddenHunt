@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://hiddenhunt-backend.onrender.com/api", // Update with your backend URL
 });
 
 // attach token automatically

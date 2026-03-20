@@ -218,14 +218,14 @@ function GemDetails() {
                           ))
                         ) : (
                           <p className="font-neue text-xs text-[#738C5A] text-center py-4">
-                            No intel shared yet. Be the first!
+                            No comment yet. Be the first!
                           </p>
                         )}
                         <button
                           onClick={() => setShowComments(false)}
                           className="w-full py-2 text-[10px] font-black uppercase tracking-widest text-[#738C5A] hover:text-[#375932]"
                         >
-                          ↑ Hide Comments
+                          ↑ Close Comments
                         </button>
                       </div>
                     </motion.div>
