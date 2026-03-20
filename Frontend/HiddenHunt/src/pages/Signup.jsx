@@ -26,7 +26,13 @@ function Signup() {
     // ... (Validation logic remains the same)
     try {
       setLoading(true);
-      await registerUser(form);
+      await registerUser({
+  username: form.username,
+  name: form.name,
+  email: form.email,
+  password: form.password,
+  bio: form.bio,
+});;
       toast.success("OTP sent to your email");
       navigate("/verify-otp", { state: { email: form.email } });
     } catch (error) {
