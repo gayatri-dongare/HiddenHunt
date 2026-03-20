@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap");
 @import "tailwindcss";
 body {
-  font-family: "Ruslan Display", serif;
+  font-family: "Inter", sans-serif;
   color: white;
 }
 
