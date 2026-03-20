@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap");
 @import "tailwindcss";
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "seekuw", serif;
   color: white;
 }
 
@@ -15,7 +15,7 @@ body {
 /* seekuw - for Headings */
 @font-face {
   font-family: "seekuw";
-  src: url("./assets/fonts/seekuw/seekuw-Regular.ttf") format("truetype");
+  src: url("/fonts/seekuw-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
