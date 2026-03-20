@@ -1,14 +1,20 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://hiddenhunt-backend.onrender.com/api"
+  baseURL: "https://hiddenhunt-backend.onrender.com",
 });
 
-export const loginUser = (data) =>
-  API.post("/auth/login", data);
+// REGISTER
+export const registerUser = async (data) => {
+  return API.post("/api/auth/register", data);
+};
 
-export const registerUser = (data) =>
-  API.post("/auth/register", data);
+// LOGIN
+export const loginUser = async (data) => {
+  return API.post("/api/auth/login", data);
+};
 
-export const verifyOtp = (data) =>
-  API.post("/auth/verify-otp", data);
+// VERIFY OTP
+export const verifyOtp = async (data) => {
+  return API.post("/api/auth/verify-otp", data);
+};
