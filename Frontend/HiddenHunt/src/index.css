@@ -23,7 +23,7 @@ body {
 /* Neue Einstellung - for Taglines */
 @font-face {
   font-family: "Neue Einstellung";
-  src: url("./assets/fonts/uni_neue/UniNeue-Regular.ttf") format("truetype");
+  src: url("/fonts/uni_neue/UniNeue-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -31,14 +31,14 @@ body {
 /* nourd - for Body/Sub-menu */
 @font-face {
   font-family: "nourd";
-  src: url("./assets/fonts/Nourd Font/Nourd-Regular.ttf") format("truetype");
+  src: url("/fonts/Nourd Font/Nourd-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 h1 {
-  /* font-family: "Ruslan Display", sans-serif;
+  /* font-family: "Ruslan Display", sans-serif; */
   font-weight: 400;
-  font-style: normal; */
+  font-style: normal; 
   font-family: "Luckiest Guy", cursive;
   font-weight: 200;
   font-style: normal;
