@@ -20,7 +20,7 @@ app.use(express.json());
 // ✅ CORS FIX (IMPORTANT)
 app.use(
   cors({
-    origin: "*", // we will restrict later after frontend deploy
+    origin: "https://hidden-hunt-rho.vercel.app", // we will restrict later after frontend deploy
     credentials: true,
   })
 );
